@@ -48,11 +48,11 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	
 	printf("Waiting for start-signal... ");
 	while(true) {
-		BOOL bRet = GetMessage(&msg, (HWND)-1, WM_HOTKEY, WM_HOTKEY);
+		BOOL bRet = GetMessage(&msg, NULL, WM_HOTKEY, WM_HOTKEY);
 		if(bRet == 0 || bRet == -1)
 			return bRet; //program exit
 		if(msg.wParam == HOTKEY_STARTSTOP_MEASURE) {
-			printf("START\r\n");
+			printf("\rStarted measure!             \r\n");
 			break;		//start measurement
 		}
 	}
@@ -79,6 +79,8 @@ int _tmain(int argc, _TCHAR* argv[]) {
 				printf("\r\n");
 				break;
 			}
+		} else {
+			DispatchMessage(&msg);
 		}
 	}
 	KillTimer(NULL, timerId);

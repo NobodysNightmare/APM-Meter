@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D7B6CB3B-CAFD-4978-A284-287CDC62B42D}"
 	ProjectSection(SolutionItems) = preProject
 		convert.py = convert.py
+		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject
 Global
