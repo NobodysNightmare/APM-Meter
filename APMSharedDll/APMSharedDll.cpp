@@ -17,8 +17,12 @@ void APMShared::addAction() {
 
 LRESULT CALLBACK APMShared::KeyboardProc(int code, WPARAM wParam, LPARAM lParam) {
 	if(code>=0) {
-		if((lParam & KEY_FIRST_PRESS) == 0)
-			addAction();
+		if((lParam & KEY_FIRST_PRESS) == 0) {
+			if(!(wParam == VK_TAB || wParam == VK_SHIFT || wParam == VK_CONTROL ||
+				wParam == VK_MENU || wParam == VK_LWIN || wParam == VK_RWIN ||
+				wParam == VK_CAPITAL || wParam == VK_RETURN))
+				addAction();
+		}
 	}
 	return CallNextHookEx(NULL, code, wParam, lParam);
 }
