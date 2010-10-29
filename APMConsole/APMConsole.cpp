@@ -1,6 +1,7 @@
 #include "targetver.h"
 #include "APMMeasure.h"
 #include "APMLogger.h"
+#include "ProcessResolver.h"
 #include <stdio.h>
 #include <tchar.h>
 

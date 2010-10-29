@@ -107,10 +107,12 @@
     <ClCompile Include="APMConsole.cpp" />
     <ClCompile Include="APMLogger.cpp" />
     <ClCompile Include="APMMeasure.cpp" />
+    <ClCompile Include="ProcessResolver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="APMLogger.h" />
     <ClInclude Include="APMMeasure.h" />
+    <ClInclude Include="ProcessResolver.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
