@@ -4,5 +4,5 @@
 
 class ProcessResolver {
 public:
-	static HANDLE getProcessByName(WCHAR* name);
+	static HANDLE getProcessByName(const WCHAR* name);
 };
