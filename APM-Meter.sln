@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "APMSharedDll", "APMSharedDll\APMSharedDll.vcxproj", "{25989782-ECB9-45A3-A526-63316C41A9E0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "APMConsole", "APMConsole\APMConsole.vcxproj", "{D942F186-D463-4138-B925-F2A00A28D1F1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "APMConsole", "APMConsole\APMConsole.vcxproj", "{86B8F665-9350-4A1A-8F3A-523D6C689F66}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "APMSharedDll", "APMSharedDll\APMSharedDll.vcxproj", "{E72E32A1-069E-410A-8F4A-BFA4BD8931C4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D7B6CB3B-CAFD-4978-A284-287CDC62B42D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{821284F0-CA7E-41D7-B79E-45F70988DC17}"
 	ProjectSection(SolutionItems) = preProject
 		convert.py = convert.py
 		ReadMe.md = ReadMe.md
@@ -17,14 +17,14 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{25989782-ECB9-45A3-A526-63316C41A9E0}.Debug|Win32.ActiveCfg = Debug|Win32
-		{25989782-ECB9-45A3-A526-63316C41A9E0}.Debug|Win32.Build.0 = Debug|Win32
-		{25989782-ECB9-45A3-A526-63316C41A9E0}.Release|Win32.ActiveCfg = Release|Win32
-		{25989782-ECB9-45A3-A526-63316C41A9E0}.Release|Win32.Build.0 = Release|Win32
-		{86B8F665-9350-4A1A-8F3A-523D6C689F66}.Debug|Win32.ActiveCfg = Debug|Win32
-		{86B8F665-9350-4A1A-8F3A-523D6C689F66}.Debug|Win32.Build.0 = Debug|Win32
-		{86B8F665-9350-4A1A-8F3A-523D6C689F66}.Release|Win32.ActiveCfg = Release|Win32
-		{86B8F665-9350-4A1A-8F3A-523D6C689F66}.Release|Win32.Build.0 = Release|Win32
+		{D942F186-D463-4138-B925-F2A00A28D1F1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D942F186-D463-4138-B925-F2A00A28D1F1}.Debug|Win32.Build.0 = Debug|Win32
+		{D942F186-D463-4138-B925-F2A00A28D1F1}.Release|Win32.ActiveCfg = Release|Win32
+		{D942F186-D463-4138-B925-F2A00A28D1F1}.Release|Win32.Build.0 = Release|Win32
+		{E72E32A1-069E-410A-8F4A-BFA4BD8931C4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E72E32A1-069E-410A-8F4A-BFA4BD8931C4}.Debug|Win32.Build.0 = Debug|Win32
+		{E72E32A1-069E-410A-8F4A-BFA4BD8931C4}.Release|Win32.ActiveCfg = Release|Win32
+		{E72E32A1-069E-410A-8F4A-BFA4BD8931C4}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
