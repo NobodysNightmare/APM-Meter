@@ -13,9 +13,10 @@ private:
 	static HANDLE hSharedMemory;
 	static LPLONG total_actions;
 
-	static void initSharedMemory();
 	static void addAction();
 public:
+	static void initSharedMemory();
+	static void freeSharedMemory();
 	static DLL_EXPORT LRESULT CALLBACK KeyboardProc(int code, WPARAM wParam, LPARAM lParam);
 	static DLL_EXPORT LRESULT CALLBACK MouseProc(int code, WPARAM wParam, LPARAM lParam);
 };

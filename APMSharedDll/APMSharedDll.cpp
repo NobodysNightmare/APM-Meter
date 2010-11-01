@@ -8,10 +8,11 @@ void APMShared::initSharedMemory() {
 	total_actions = (LPLONG)MapViewOfFile(hSharedMemory, FILE_MAP_WRITE, 0, 0, SHARED_MEMORY_SIZE);
 }
 
-void APMShared::addAction() {
-	if(hSharedMemory == NULL)
-		initSharedMemory();
+void APMShared::freeSharedMemory() {
+	CloseHandle(hSharedMemory);
+}
 
+void APMShared::addAction() {
 	InterlockedIncrement(total_actions);
 }
 
