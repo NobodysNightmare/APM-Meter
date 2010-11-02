@@ -38,11 +38,11 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	HHOOK mouseHook;
 	UINT_PTR timerId;
 
-	hinstAPMSharedDll = LoadLibrary(TEXT("APMSharedDll.dll"));
-	hprocKeyboard = (HOOKPROC)GetProcAddress(hinstAPMSharedDll, "?KeyboardProc@APMShared@@SGJHIJ@Z");
-	hprocMouse = (HOOKPROC)GetProcAddress(hinstAPMSharedDll, "?MouseProc@APMShared@@SGJHIJ@Z");
+	hinstAPMSharedDll = LoadLibrary(TEXT("APMKeyHook.dll"));
+	hprocKeyboard = (HOOKPROC)GetProcAddress(hinstAPMSharedDll, "?KeyboardProc@APMKeyHook@@SGJHIJ@Z");
+	hprocMouse = (HOOKPROC)GetProcAddress(hinstAPMSharedDll, "?MouseProc@APMKeyHook@@SGJHIJ@Z");
 	if(hinstAPMSharedDll == NULL || hprocKeyboard == NULL || hprocMouse == NULL) {
-		printf("Failed to load APMSharedDll.dll:\r\n");
+		printf("Failed to load APMKeyHook.dll:\r\n");
 		if(hinstAPMSharedDll == NULL)
 			printf("DLL not found\r\n");
 		else

@@ -4,11 +4,11 @@
 #include <windows.h>
 
 #define SHARED_MEMORY_SIZE sizeof(long)
-#define SHARED_MEMORY_NAME TEXT("APM-Shared-Memory")
+#define SHARED_MEMORY_NAME TEXT("APMHook-Shared-Memory")
 
 #define KEY_FIRST_PRESS 3221225472
 
-class APMShared {
+class APMKeyHook {
 private:
 	static HANDLE hSharedMemory;
 	static LPLONG total_actions;

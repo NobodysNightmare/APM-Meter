@@ -11,16 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="APMSharedDll.cpp" />
+    <ClCompile Include="APMKeyHook.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="APMSharedDll.h" />
+    <ClInclude Include="APMKeyHook.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E72E32A1-069E-410A-8F4A-BFA4BD8931C4}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>APMSharedDll</RootNamespace>
+    <ProjectName>APMKeyHook</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

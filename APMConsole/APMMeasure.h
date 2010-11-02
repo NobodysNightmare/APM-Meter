@@ -1,7 +1,7 @@
 #pragma once
 
 #include <windows.h>
-#include "APMSharedDll.h"
+#include "APMKeyHook.h"
 
 #define RING_SIZE 15
 #define MEASURE_CYCLE_LENGTH 500
