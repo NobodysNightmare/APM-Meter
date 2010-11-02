@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "APMConsole", "APMConsole\APMConsole.vcxproj", "{D942F186-D463-4138-B925-F2A00A28D1F1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "APMSharedDll", "APMSharedDll\APMSharedDll.vcxproj", "{E72E32A1-069E-410A-8F4A-BFA4BD8931C4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "APMKeyHook", "APMKeyHook\APMKeyHook.vcxproj", "{E72E32A1-069E-410A-8F4A-BFA4BD8931C4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{821284F0-CA7E-41D7-B79E-45F70988DC17}"
 	ProjectSection(SolutionItems) = preProject

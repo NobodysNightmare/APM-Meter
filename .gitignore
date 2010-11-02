@@ -13,3 +13,5 @@
 /APMConsole/APMConsole.vcxproj.user
 *.suo
 *.opensdf
+/APMKeyHook/Debug
+/APMKeyHook/Release
