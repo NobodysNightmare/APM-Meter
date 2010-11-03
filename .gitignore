@@ -15,3 +15,5 @@
 *.opensdf
 /APMKeyHook/Debug
 /APMKeyHook/Release
+/APMShared/Debug
+/APMShared/Release
