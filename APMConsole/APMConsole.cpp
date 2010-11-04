@@ -2,32 +2,10 @@
 #include "APMMeasure.h"
 #include "APMLogger.h"
 #include "ProcessResolver.h"
+#include "APMConfig.h"
+#include "APMTrigger.h"
 #include <stdio.h>
 #include <tchar.h>
-
-#define HOTKEY_STARTSTOP_MEASURE 1
-
-#define WAIT_FOR_HOTKEY 1
-#define WAIT_FOR_PROCESS 2
-
-void waitForHotKey() {
-	MSG msg = {0};
-	while(true) {
-		BOOL bRet = GetMessage(&msg, NULL, WM_HOTKEY, WM_HOTKEY);
-		if(bRet == 0 || bRet == -1)
-			exit(bRet);
-		if(msg.wParam == HOTKEY_STARTSTOP_MEASURE) {
-			return; //unblock
-		}
-	}
-}
-
-HANDLE waitForProcess(const WCHAR* name) {
-	HANDLE hInst = NULL;
-	while(!(hInst = ProcessResolver::getProcessByName(name)))
-		Sleep(50);
-	return hInst;
-}
 
 int _tmain(int argc, _TCHAR* argv[]) {
 	APMLogger* logger = NULL;
@@ -37,6 +15,9 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	HHOOK keyboardHook;
 	HHOOK mouseHook;
 	UINT_PTR timerId;
+
+	APMConfig* cfg = new APMConfig(argc, argv);
+	APMTrigger* trigger = new APMTrigger(cfg);
 
 	hinstAPMSharedDll = LoadLibrary(TEXT("APMKeyHook.dll"));
 	hprocKeyboard = (HOOKPROC)GetProcAddress(hinstAPMSharedDll, "?KeyboardProc@APMKeyHook@@SGJHIJ@Z");
@@ -57,36 +38,18 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		return GetLastError();
 	}
 
-	if(!RegisterHotKey(NULL, HOTKEY_STARTSTOP_MEASURE, MOD_ALT | MOD_SHIFT, 0x50 /*P*/)) {
-		printf("Failed to register the hotkey\r\n");
-		return GetLastError();
-	}
-
-	int wait_method = WAIT_FOR_HOTKEY;
-	WCHAR* wait_process = NULL;
+	// TODO: renew logger-constructor and remove this
 	if(argc > 1)
 		for(int i=1;i<argc;i++) {
 			if(wcscmp(argv[i],L"-o") == 0 && (i+1) < argc)
 				logger = new APMLogger(argv[i+1]);
-			if(wcscmp(argv[i],L"-p") == 0 && (i+1) < argc) {
-				wait_method = WAIT_FOR_PROCESS;
-				wait_process = argv[i+1];
-			}
 		}
 	
 	
-	HANDLE hWaitProcess = NULL;
-	switch(wait_method) {
-	case WAIT_FOR_HOTKEY:
-		printf("Waiting for hotkey... ");
-		waitForHotKey();
-		break;
-	case WAIT_FOR_PROCESS:
-		printf("Waiting for process... ");
-		hWaitProcess = waitForProcess(wait_process);
-		break;
-	}
-	printf("\rStarted measure!             \r\n");
+	
+	printf("Waiting to start... ");
+	trigger->triggerStart();
+	printf("\rStarted measure!       \r\n");
 
 	APMMeasure::resetAllAPM();
 	timerId = SetTimer(NULL, 0, MEASURE_CYCLE_LENGTH-10, NULL);
@@ -106,28 +69,20 @@ int _tmain(int argc, _TCHAR* argv[]) {
 
 			if(logger != NULL)
 				logger->addEntry(APMMeasure::getSnapshot());
-
-			if(wait_method == WAIT_FOR_PROCESS) {
-				if(WaitForSingleObject(hWaitProcess, 0) == WAIT_OBJECT_0) {
-					printf("\r\n");
-					break;
-				}
-			}
-		} else if(msg.message == WM_HOTKEY) {
-			if(wait_method == WAIT_FOR_HOTKEY && msg.wParam == HOTKEY_STARTSTOP_MEASURE) {
-				printf("\r\n");
-				break;
-			}
-		} else {
-			DispatchMessage(&msg);
 		}
+		
+		if(trigger->triggerStop(&msg)) {
+			printf("\r\n");
+			break;
+		}
+		DispatchMessage(&msg);
 	}
-	CloseHandle(hWaitProcess);
 	KillTimer(NULL, timerId);
 	UnhookWindowsHookEx(keyboardHook);
 	UnhookWindowsHookEx(mouseHook);
-	UnregisterHotKey(NULL, HOTKEY_STARTSTOP_MEASURE);
 	delete logger;
+	delete trigger;
+	delete cfg;
 	system("pause");
 	return 0;
 }

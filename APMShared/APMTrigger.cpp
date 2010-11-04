@@ -21,6 +21,7 @@ APMTrigger::~APMTrigger() {
 		UnregisterHotKey(NULL, HOTKEY_STARTSTOP_MEASURE);
 		break;
 	case TRIGGER_BY_PROCESS:
+		CloseHandle(hProcess);
 		break;
 	}
 }
