@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="APMConfig.cpp" />
     <ClCompile Include="APMLogger.cpp" />
     <ClCompile Include="APMMeasure.cpp" />
     <ClCompile Include="APMTrigger.cpp" />

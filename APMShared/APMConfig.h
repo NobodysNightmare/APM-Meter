@@ -6,7 +6,11 @@
 
 #define HOTKEY_STARTSTOP_MEASURE 1
 
-typedef struct {
-	int trigger_method;
-	WCHAR* trigger_process;
+typedef class APMConfig {
+public:
+	APMConfig(int argc, WCHAR* argv[]);
+
+	int		trigger_method;
+	WCHAR*	trigger_process;
+	WCHAR*	log_file;
 } APMConfig;
