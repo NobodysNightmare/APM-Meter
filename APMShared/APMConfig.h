@@ -4,7 +4,9 @@
 #define TRIGGER_BY_HOTKEY 1
 #define TRIGGER_BY_PROCESS 2
 
+#define HOTKEY_STARTSTOP_MEASURE 1
+
 typedef struct {
 	int trigger_method;
 	WCHAR* trigger_process;
-} APMConfig
+} APMConfig;

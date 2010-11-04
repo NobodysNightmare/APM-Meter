@@ -6,7 +6,7 @@ APMTrigger::APMTrigger(APMConfig* n_cfg) {
 
 	switch(cfg->trigger_method) {
 	case TRIGGER_BY_HOTKEY:
-		if(!RegisterHotKey(NULL, HOTKEY_STARTSTOP_MEASURE, MOD_ALT | MOD_SHIFT, 0x50 /*P*/)) {
+		if(!RegisterHotKey(NULL, HOTKEY_STARTSTOP_MEASURE, MOD_ALT | MOD_SHIFT, 0x50)) {
 			exit(GetLastError());
 		}
 		break;
@@ -31,6 +31,8 @@ BOOL APMTrigger::triggerStart() {
 		return triggerStartByHotkey();
 	case TRIGGER_BY_PROCESS:
 		return triggerStartByProcess();
+	default:
+		return TRUE;
 	}
 }
 
@@ -47,7 +49,7 @@ BOOL APMTrigger::triggerStartByHotkey() {
 }
 
 BOOL APMTrigger::triggerStartByProcess() {
-	while(!(hProcess = ProcessResolver::getProcessByName(cfg->trigger_process)))
+	while(!(hProcess = getProcessByName(cfg->trigger_process)))
 		Sleep(50);
 	return TRUE;
 }
@@ -55,9 +57,11 @@ BOOL APMTrigger::triggerStartByProcess() {
 BOOL APMTrigger::triggerStop(MSG* msg) {
 	switch(cfg->trigger_method) {
 	case TRIGGER_BY_HOTKEY:
-		return triggerStopByHotkey(&msg);
+		return triggerStopByHotkey(msg);
 	case TRIGGER_BY_PROCESS:
 		return triggerStopByProcess();
+	default:
+		return TRUE;
 	}
 }
 
@@ -71,4 +75,22 @@ BOOL APMTrigger::triggerStopByProcess() {
 	if(WaitForSingleObject(hProcess, 0) == WAIT_OBJECT_0)
 		return TRUE;
 	return FALSE;
+}
+
+HANDLE APMTrigger::getProcessByName(const WCHAR* name) {
+	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	PROCESSENTRY32 proc_entry = {0};
+	proc_entry.dwSize = sizeof(PROCESSENTRY32);
+
+	if(Process32First(hSnap, &proc_entry)) {
+		do {
+			if(_wcsicmp(name, proc_entry.szExeFile) == 0) {
+				CloseHandle(hSnap);
+				return OpenProcess(PROCESS_QUERY_INFORMATION | SYNCHRONIZE, FALSE, proc_entry.th32ProcessID);
+			}
+		} while(Process32Next(hSnap, &proc_entry));
+	}
+
+	CloseHandle(hSnap);
+	return NULL;
 }

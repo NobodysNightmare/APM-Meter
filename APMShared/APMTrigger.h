@@ -1,13 +1,14 @@
 #pragma once
 #include "APMConfig.h"
-#include "ProcessResolver.h"
-
-#define HOTKEY_STARTSTOP_MEASURE 1
+#include <windows.h>
+#include <TlHelp32.h>
 
 class APMTrigger {
 private:
 	APMConfig* cfg;
 	HANDLE hProcess;
+
+	static HANDLE getProcessByName(const WCHAR* name);
 
 	BOOL triggerStartByHotkey();
 	BOOL triggerStartByProcess();
@@ -18,4 +19,4 @@ public:
 	~APMTrigger();
 	BOOL triggerStart();
 	BOOL triggerStop(MSG* msg);
-}
+};
