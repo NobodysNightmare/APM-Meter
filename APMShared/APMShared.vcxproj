@@ -13,11 +13,14 @@
   <ItemGroup>
     <ClCompile Include="APMLogger.cpp" />
     <ClCompile Include="APMMeasure.cpp" />
+    <ClCompile Include="APMTrigger.cpp" />
     <ClCompile Include="ProcessResolver.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="APMConfig.h" />
     <ClInclude Include="APMLogger.h" />
     <ClInclude Include="APMMeasure.h" />
+    <ClInclude Include="APMTrigger.h" />
     <ClInclude Include="ProcessResolver.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
