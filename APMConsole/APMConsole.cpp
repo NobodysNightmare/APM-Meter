@@ -38,15 +38,9 @@ int _tmain(int argc, _TCHAR* argv[]) {
 		return GetLastError();
 	}
 
-	// TODO: renew logger-constructor and remove this
-	if(argc > 1)
-		for(int i=1;i<argc;i++) {
-			if(wcscmp(argv[i],L"-o") == 0 && (i+1) < argc)
-				logger = new APMLogger(argv[i+1]);
-		}
-	
-	
-	
+	if(cfg->log_file)
+		logger = new APMLogger(cfg->log_file);
+		
 	printf("Waiting to start... ");
 	trigger->triggerStart();
 	printf("\rStarted measure!       \r\n");
