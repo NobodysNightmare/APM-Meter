@@ -31,6 +31,10 @@ The measurement stops when the counter-event occurs (e.g. pressing the hotkey ag
 			The measurement ends when this process terminates.
 			Example: -p notepad.exe
 
+	--no-skip-begin
+			By default the real apm-measurement starts with the first action after the start-event,
+			use this option to  start all measurement immediately.
+
 Using convert.py
 ----------------
 This is a minimal python-script to convert the binary logs created by APMConsole into text-files.
