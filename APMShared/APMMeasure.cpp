@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 APMMeasure::APMMeasure(APMConfig* n_cfg) {
-	cfg = n_cfg;
+	reset_pending = n_cfg->skip_begin;
 
 	hSharedMemory = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, SHARED_MEMORY_SIZE, SHARED_MEMORY_NAME);
 	lpSharedMemory = (LPLONG)MapViewOfFile(hSharedMemory, FILE_MAP_WRITE, 0, 0, SHARED_MEMORY_SIZE);
@@ -16,6 +16,10 @@ APMMeasure::~APMMeasure() {
 
 long APMMeasure::getTotalActions() {
 	total_actions += InterlockedExchange(lpSharedMemory, 0);
+	if(reset_pending && total_actions > 0) {
+		current_starttick = absolute_starttick = GetTickCount();
+		reset_pending = FALSE;
+	}
 	return total_actions;
 }
 

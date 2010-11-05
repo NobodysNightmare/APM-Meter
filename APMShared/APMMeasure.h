@@ -31,15 +31,15 @@ private:
 	APMFrame ring_buffer[RING_SIZE];
 	int ring_pos;
 
-	APMConfig* cfg;
+	BOOL reset_pending;
 
 	static long computeAPM(long actions, DWORD starttick);
+	void resetAllAPM();
 	long getTotalActions();
 	void setTotalActions(long n);
 public:
 	APMMeasure(APMConfig* n_cfg);
 	~APMMeasure();
-	void resetAllAPM();
 	void moveCurrentAPM();
 	long getAverageAPM();
 	long getCurrentAPM();

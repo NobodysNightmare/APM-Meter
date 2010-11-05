@@ -13,4 +13,5 @@ public:
 	int		trigger_method;
 	WCHAR*	trigger_process;
 	WCHAR*	log_file;
+	BOOL	skip_begin;
 } APMConfig;
