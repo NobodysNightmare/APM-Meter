@@ -45,7 +45,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	trigger->triggerStart();
 	printf("\rStarted measure!       \r\n");
 
-	APMMeasure::resetAllAPM();
+	APMMeasure* measure = new APMMeasure(cfg);
 	timerId = SetTimer(NULL, 0, MEASURE_CYCLE_LENGTH-10, NULL);
 	long max = 0;
 	MSG msg = {0};
@@ -55,14 +55,14 @@ int _tmain(int argc, _TCHAR* argv[]) {
 			break;
 
 		if(msg.message == WM_TIMER) {
-			long current = APMMeasure::getCurrentAPM();
+			long current = measure->getCurrentAPM();
 			if(current > max)
 				max = current;
-			printf("Current: %d    Average: %d    Max: %d    \r", current, APMMeasure::getAverageAPM(), max);
-			APMMeasure::moveCurrentAPM();
+			printf("Current: %d    Average: %d    Max: %d    \r", current, measure->getAverageAPM(), max);
+			measure->moveCurrentAPM();
 
 			if(logger != NULL)
-				logger->addEntry(APMMeasure::getSnapshot());
+				logger->addEntry(measure->getSnapshot());
 		}
 		
 		if(trigger->triggerStop(&msg)) {
@@ -74,6 +74,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	KillTimer(NULL, timerId);
 	UnhookWindowsHookEx(keyboardHook);
 	UnhookWindowsHookEx(mouseHook);
+	delete measure;
 	delete logger;
 	delete trigger;
 	delete cfg;

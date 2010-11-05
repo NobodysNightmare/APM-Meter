@@ -1,20 +1,17 @@
 #include "APMMeasure.h"
 #include <stdio.h>
 
-HANDLE	APMMeasure::hSharedMemory = NULL;
-LPLONG APMMeasure::lpSharedMemory = NULL;
+APMMeasure::APMMeasure(APMConfig* n_cfg) {
+	cfg = n_cfg;
 
-DWORD	APMMeasure::absolute_starttick = 0;
-
-long	APMMeasure::total_actions = 0;
-long		APMMeasure::current_actions_offset = 0;
-DWORD	APMMeasure::current_starttick = 0;
-APMFrame APMMeasure::ring_buffer[RING_SIZE];
-int		APMMeasure::ring_pos = 0;
-
-void APMMeasure::initSharedMemory() {
 	hSharedMemory = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, SHARED_MEMORY_SIZE, SHARED_MEMORY_NAME);
 	lpSharedMemory = (LPLONG)MapViewOfFile(hSharedMemory, FILE_MAP_WRITE, 0, 0, SHARED_MEMORY_SIZE);
+
+	resetAllAPM();
+}
+
+APMMeasure::~APMMeasure() {
+	CloseHandle(hSharedMemory);
 }
 
 long APMMeasure::getTotalActions() {
@@ -28,13 +25,12 @@ void APMMeasure::setTotalActions(long n) {
 }
 
 void APMMeasure::resetAllAPM() {
-	if(hSharedMemory == NULL)
-		APMMeasure::initSharedMemory();
 	setTotalActions(0);
 	absolute_starttick = GetTickCount();
 
 	current_actions_offset = 0;
 	current_starttick = absolute_starttick;
+	ring_pos = 0;
 	for(int i=0;i<RING_SIZE;i++) {
 		ring_buffer[i].actions = 0;
 		ring_buffer[i].time = MEASURE_CYCLE_LENGTH;
