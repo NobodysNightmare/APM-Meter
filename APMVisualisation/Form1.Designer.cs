@@ -126,6 +126,8 @@
             this.graphBox.TabIndex = 2;
             this.graphBox.TabStop = false;
             this.graphBox.Paint += new System.Windows.Forms.PaintEventHandler(this.graphBox_Paint);
+            this.graphBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.graphBox_MouseDown);
+            this.graphBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.graphBox_MouseMove);
             this.graphBox.Resize += new System.EventHandler(this.graphBox_Resize);
             // 
             // statusStrip1

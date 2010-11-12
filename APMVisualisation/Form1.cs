@@ -68,6 +68,7 @@ namespace APMVisualisation
             if (apm_log == null)
                 return;
             viewport_range = Math.Min(viewport_range * 2, (int)apm_log.total_time.TotalMilliseconds);
+            viewport_center = Math.Max(viewport_range / 2, Math.Min(viewport_center, (int)apm_log.total_time.TotalMilliseconds - viewport_range / 2));
             graphBox.Refresh();
         }
 
@@ -179,6 +180,29 @@ namespace APMVisualisation
         {
             updateGraphDimensions();
             graphBox.Refresh();
+        }
+
+        private int last_x;
+        private void graphBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!e.Button.HasFlag(MouseButtons.Left))
+                return;
+            if (apm_log == null)
+                return;
+
+            int screen_delta = last_x - e.X;
+            int pixel_width = viewport_range / graph_width;
+
+            viewport_center += pixel_width * screen_delta;
+            viewport_center = Math.Max(viewport_range / 2, Math.Min(viewport_center, (int)apm_log.total_time.TotalMilliseconds - viewport_range / 2));
+
+            last_x = e.X;
+            graphBox.Refresh();
+        }
+
+        private void graphBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            last_x = e.X;
         }
     }
 }
