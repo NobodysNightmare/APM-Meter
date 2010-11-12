@@ -11,6 +11,8 @@ namespace APMVisualisation
 {
     public partial class APMVisMainWindow : Form
     {
+        private static int MAX_ZOOM = 10000;
+
         private APMLogData apm_log = null;
         private String log_name = "";
 
@@ -55,10 +57,25 @@ namespace APMVisualisation
             viewport_center = viewport_range / 2;
         }
 
+        private void viewportZoomIn()
+        {
+            viewport_range = Math.Max(viewport_range / 2, MAX_ZOOM);
+            graphBox.Refresh();
+        }
+
+        private void viewportZoomOut()
+        {
+            if (apm_log == null)
+                return;
+            viewport_range = Math.Min(viewport_range * 2, (int)apm_log.total_time.TotalMilliseconds);
+            graphBox.Refresh();
+        }
+
         public APMVisMainWindow()
         {
             InitializeComponent();
             updateGraphDimensions();
+            this.MouseWheel += new MouseEventHandler(this.graphBox_mouseWheel);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -148,6 +165,14 @@ namespace APMVisualisation
 
             //indicate average APM
             e.Graphics.DrawLine(Pens.Chocolate, graph_margin_left, APMtoY(apm_log.average_apm), graph_margin_left + graph_width, APMtoY(apm_log.average_apm));
+        }
+
+        private void graphBox_mouseWheel(object sender, MouseEventArgs e)
+        {
+            if(e.Delta > 0)
+                viewportZoomIn();
+            else
+                viewportZoomOut();
         }
 
         private void graphBox_Resize(object sender, EventArgs e)
