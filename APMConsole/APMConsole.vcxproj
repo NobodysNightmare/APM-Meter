@@ -84,6 +84,8 @@
       <AdditionalIncludeDirectories>C:\Users\Jan\Documents\Visual Studio 2010\Projects\APM-Meter\APMKeyHook;C:\Users\Jan\Documents\Visual Studio 2010\Projects\APM-Meter\APMShared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAsManaged>false</CompileAsManaged>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

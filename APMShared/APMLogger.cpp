@@ -14,5 +14,5 @@ APMLogger::~APMLogger() {
 void APMLogger::addEntry(APMSnapshot snap) {
 	DWORD written = 0;
 	if(!WriteFile(hFile, &snap, sizeof(APMSnapshot), &written, NULL))
-		printf("#%d#", GetLastError());
+		printf("#%d#\r\n", GetLastError());
 }

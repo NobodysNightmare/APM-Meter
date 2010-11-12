@@ -16,6 +16,13 @@ APMConfig::APMConfig(int argc, WCHAR* argv[]) {
 				trigger_process = argv[i+1];
 			} else if(wcscmp(argv[i],L"--no-skip-begin") == 0) {
 				skip_begin = FALSE;
+			} else if(wcscmp(argv[i],L"--help") == 0) {
+				showHelp();
+				exit(0);
 			}
 		}
+}
+
+void APMConfig::showHelp() {
+	//printf("implement me ^^");
 }

@@ -9,6 +9,7 @@
 typedef class APMConfig {
 public:
 	APMConfig(int argc, WCHAR* argv[]);
+	void showHelp();
 
 	int		trigger_method;
 	WCHAR*	trigger_process;
