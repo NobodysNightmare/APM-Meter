@@ -10,5 +10,5 @@ public:
 	APMLogger(LPCTSTR filename);
 	~APMLogger();
 
-	void addEntry(APMSnapshot snap);
+	void addEntry(APMLoggableSnapshot snap);
 };

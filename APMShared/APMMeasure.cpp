@@ -74,11 +74,13 @@ long APMMeasure::getAverageAPM() {
 	return computeAPM(getTotalActions(), GetTickCount()-absolute_starttick);
 }
 
-APMSnapshot APMMeasure::getSnapshot() {
-	APMSnapshot snap;
-	snap.time = GetTickCount()-absolute_starttick;
-	snap.actions = getTotalActions();
-	snap.apm = getCurrentAPM();
+APMLoggableSnapshot APMMeasure::getSnapshot() {
+	APMLoggableSnapshot snap;
+	snap.valid = !reset_pending;
+
+	snap.snap.time = GetTickCount()-absolute_starttick;
+	snap.snap.actions = getTotalActions();
+	snap.snap.apm = getCurrentAPM();
 
 	return snap;
 }

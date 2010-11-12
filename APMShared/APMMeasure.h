@@ -18,6 +18,11 @@ typedef struct {
 	long apm;
 } APMSnapshot;
 
+typedef struct {
+	BOOL valid;
+	APMSnapshot snap;
+} APMLoggableSnapshot;
+
 class APMMeasure {
 private:
 	HANDLE hSharedMemory;
@@ -43,5 +48,5 @@ public:
 	void moveCurrentAPM();
 	long getAverageAPM();
 	long getCurrentAPM();
-	APMSnapshot getSnapshot();
+	APMLoggableSnapshot getSnapshot();
 };

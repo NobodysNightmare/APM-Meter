@@ -11,8 +11,10 @@ APMLogger::~APMLogger() {
 	CloseHandle(hFile);
 }
 
-void APMLogger::addEntry(APMSnapshot snap) {
+void APMLogger::addEntry(APMLoggableSnapshot snap) {
+	if(!snap.valid)
+		return;
 	DWORD written = 0;
-	if(!WriteFile(hFile, &snap, sizeof(APMSnapshot), &written, NULL))
+	if(!WriteFile(hFile, &(snap.snap), sizeof(APMSnapshot), &written, NULL))
 		printf("#%d#\r\n", GetLastError());
 }
