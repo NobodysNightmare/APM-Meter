@@ -1,6 +1,6 @@
 ﻿namespace APMVisualisation
 {
-    partial class Form1
+    partial class APMVisMainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeLogMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,6 +43,8 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.averageAPMStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.openLogFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.logFilenameStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.graphBox)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -62,6 +65,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadLogToolStripMenuItem,
+            this.closeLogMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -75,6 +79,14 @@
             this.loadLogToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.loadLogToolStripMenuItem.Text = "Load Log";
             this.loadLogToolStripMenuItem.Click += new System.EventHandler(this.loadLogToolStripMenuItem_Click);
+            // 
+            // closeLogMenuItem
+            // 
+            this.closeLogMenuItem.Enabled = false;
+            this.closeLogMenuItem.Name = "closeLogMenuItem";
+            this.closeLogMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.closeLogMenuItem.Text = "Close Log";
+            this.closeLogMenuItem.Click += new System.EventHandler(this.closeLog_event);
             // 
             // toolStripSeparator1
             // 
@@ -113,6 +125,8 @@
             this.graphBox.Size = new System.Drawing.Size(692, 223);
             this.graphBox.TabIndex = 2;
             this.graphBox.TabStop = false;
+            this.graphBox.Paint += new System.Windows.Forms.PaintEventHandler(this.graphBox_Paint);
+            this.graphBox.Resize += new System.EventHandler(this.graphBox_Resize);
             // 
             // statusStrip1
             // 
@@ -120,7 +134,9 @@
             this.toolStripStatusLabel1,
             this.totalTimeStatus,
             this.toolStripStatusLabel3,
-            this.averageAPMStatus});
+            this.averageAPMStatus,
+            this.toolStripStatusLabel2,
+            this.logFilenameStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 286);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(692, 22);
@@ -154,9 +170,22 @@
             // 
             // openLogFileDialog
             // 
-            this.openLogFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openLogFileDialog_FileOk);
+            this.openLogFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openLog_event);
             // 
-            // Form1
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Margin = new System.Windows.Forms.Padding(8, 3, 0, 2);
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(51, 17);
+            this.toolStripStatusLabel2.Text = "Log File:";
+            // 
+            // logFilenameStatus
+            // 
+            this.logFilenameStatus.Name = "logFilenameStatus";
+            this.logFilenameStatus.Size = new System.Drawing.Size(22, 17);
+            this.logFilenameStatus.Text = "---";
+            // 
+            // APMVisMainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -165,8 +194,8 @@
             this.Controls.Add(this.graphBox);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "APMVisMainWindow";
+            this.Text = "APM-Visualisation";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -194,6 +223,9 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel averageAPMStatus;
         private System.Windows.Forms.OpenFileDialog openLogFileDialog;
+        private System.Windows.Forms.ToolStripMenuItem closeLogMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel logFilenameStatus;
     }
 }
 
