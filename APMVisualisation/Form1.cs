@@ -230,7 +230,7 @@ namespace APMVisualisation
             {
                 if(i.TotalMilliseconds < viewport_left || i.TotalMilliseconds > viewport_right)
                     continue;
-                String time = String.Format("{0:00}", i.TotalMinutes) + ":" + String.Format("{0:00}", i.Seconds);
+                String time = String.Format("{0:00}", (int)i.TotalMinutes) + ":" + String.Format("{0:00}", i.Seconds);
                 int pos = timeToX(i.TotalMilliseconds) - font_offset;
                 e.Graphics.DrawString(time, SystemFonts.DefaultFont, Brushes.Black, pos, graph_margin_top+graph_height);
             }
