@@ -42,9 +42,9 @@
             this.totalTimeStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.averageAPMStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.openLogFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.logFilenameStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.openLogFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.graphBox)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -126,6 +126,7 @@
             this.graphBox.TabIndex = 2;
             this.graphBox.TabStop = false;
             this.graphBox.Paint += new System.Windows.Forms.PaintEventHandler(this.graphBox_Paint);
+            this.graphBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.graphBox_MouseDoubleClick);
             this.graphBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.graphBox_MouseDown);
             this.graphBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.graphBox_MouseMove);
             this.graphBox.Resize += new System.EventHandler(this.graphBox_Resize);
@@ -170,10 +171,6 @@
             this.averageAPMStatus.Size = new System.Drawing.Size(22, 17);
             this.averageAPMStatus.Text = "---";
             // 
-            // openLogFileDialog
-            // 
-            this.openLogFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openLog_event);
-            // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Margin = new System.Windows.Forms.Padding(8, 3, 0, 2);
@@ -186,6 +183,10 @@
             this.logFilenameStatus.Name = "logFilenameStatus";
             this.logFilenameStatus.Size = new System.Drawing.Size(22, 17);
             this.logFilenameStatus.Text = "---";
+            // 
+            // openLogFileDialog
+            // 
+            this.openLogFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openLog_event);
             // 
             // APMVisMainWindow
             // 

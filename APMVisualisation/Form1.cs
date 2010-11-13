@@ -17,9 +17,17 @@ namespace APMVisualisation
         private String log_name = "";
 
         private int graph_margin_bot = 0;
-        private int graph_margin_top = 0;
+        private int graph_margin_top = 5;
         private int graph_margin_left = 0;
         private int graph_margin_right = 0;
+
+        private double y_caption_density = 0.333;
+        private int min_y_step = 20;
+        private int y_step;
+
+        private double x_caption_density = 0.333;
+        private int min_x_step = 10000;
+        private int x_step;
 
         private int graph_height;
         private int graph_width;
@@ -33,6 +41,13 @@ namespace APMVisualisation
             double time_frac = (time - viewport_left) / viewport_range;
             return (int)(graph_margin_left + time_frac * graph_width);
         }
+
+        private int XtoTime(int x)
+        {
+            double graph_frac = ((double)x - graph_margin_left) / graph_width;
+            int viewport_left = viewport_center - viewport_range / 2;
+            return (int)(viewport_left + graph_frac * viewport_range);
+        }
         
         private int APMtoY(double apm)
         {
@@ -44,8 +59,54 @@ namespace APMVisualisation
 
         private void updateGraphDimensions()
         {
+            graph_margin_bot = (int)SystemFonts.DefaultFont.GetHeight();
             graph_height = graphBox.Height - (graph_margin_top + graph_margin_bot) - 1;
             graph_width = graphBox.Width - (graph_margin_left + graph_margin_right) - 1;
+
+            updateYStepSize();
+            updateXStepSize();
+        }
+
+        private void updateYStepSize()
+        {
+            if(apm_log == null)
+                return;
+            double font_height = SystemFonts.DefaultFont.GetHeight();
+            int i;
+            double last_diff = -1;
+            for (i = 1; i * min_y_step <= apm_log.max_apm; i++)
+            {
+                int count = apm_log.max_apm / (i * min_y_step);
+                double diff = Math.Abs(count*font_height/graph_height-y_caption_density);
+
+                if (last_diff > 0 && diff > last_diff)
+                {
+                    i--;
+                    break;
+                }
+                last_diff = diff;
+            }
+            y_step = i * min_y_step;
+        }
+
+        private void updateXStepSize()
+        {
+            double text_width = 33;
+            int i;
+            double last_diff = -1;
+            for (i = 1; i * min_x_step <= viewport_range; i++)
+            {
+                int count = viewport_range / (i * min_x_step);
+                double diff = Math.Abs(count * text_width / graph_width - x_caption_density);
+
+                if (last_diff > 0 && diff > last_diff)
+                {
+                    i--;
+                    break;
+                }
+                last_diff = diff;
+            }
+            x_step = i * min_x_step;
         }
 
         private void resetViewport()
@@ -55,21 +116,30 @@ namespace APMVisualisation
 
             viewport_range = (int)apm_log.total_time.TotalMilliseconds;
             viewport_center = viewport_range / 2;
+            updateXStepSize();
         }
 
-        private void viewportZoomIn()
+        private void viewportZoomIn(bool refresh)
         {
             viewport_range = Math.Max(viewport_range / 2, MAX_ZOOM);
-            graphBox.Refresh();
+            updateXStepSize();
+            if(refresh)
+                graphBox.Refresh();
         }
 
-        private void viewportZoomOut()
+        private void viewportZoomOut(bool refresh)
         {
             if (apm_log == null)
                 return;
             viewport_range = Math.Min(viewport_range * 2, (int)apm_log.total_time.TotalMilliseconds);
             viewport_center = Math.Max(viewport_range / 2, Math.Min(viewport_center, (int)apm_log.total_time.TotalMilliseconds - viewport_range / 2));
-            graphBox.Refresh();
+            updateXStepSize();
+            if (refresh)
+                graphBox.Refresh();
+        }
+
+        private void setViewportCenter(int center) {
+            viewport_center = Math.Max(viewport_range / 2, Math.Min(center, (int)apm_log.total_time.TotalMilliseconds - viewport_range / 2));
         }
 
         public APMVisMainWindow()
@@ -77,6 +147,7 @@ namespace APMVisualisation
             InitializeComponent();
             updateGraphDimensions();
             this.MouseWheel += new MouseEventHandler(this.graphBox_mouseWheel);
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -102,6 +173,7 @@ namespace APMVisualisation
 
             updateStatusBar();
             resetViewport();
+            updateYStepSize();
             graphBox.Refresh();
         }
 
@@ -138,16 +210,35 @@ namespace APMVisualisation
 
             //draw surrounding
             e.Graphics.DrawRectangle(Pens.Black, graph_margin_left, graph_margin_top, graph_width, graph_height);
-
+            
             if (apm_log == null)
                 return;
+
+            //left margin changes depending on max-apm
+            graph_margin_left = (int)e.Graphics.MeasureString(apm_log.max_apm.ToString(), SystemFonts.DefaultFont).Width;
+
+            //draw captions
+            int font_offset = (int)SystemFonts.DefaultFont.GetHeight() / 2;
+            for(int i = 0;i<=apm_log.max_apm;i+=y_step)
+                e.Graphics.DrawString(i.ToString(), SystemFonts.DefaultFont, Brushes.Black, 0, APMtoY(i)-font_offset);
+
+            font_offset = (int)e.Graphics.MeasureString("00:00", SystemFonts.DefaultFont).Width/2;
+            int viewport_left = viewport_center - viewport_range / 2;
+            int viewport_right = viewport_center + viewport_range / 2;
+            TimeSpan time_step = new TimeSpan(0,0,0,0,x_step);
+            for (TimeSpan i = new TimeSpan(); i.TotalMilliseconds <= apm_log.total_time.TotalMilliseconds; i = i.Add(time_step))
+            {
+                if(i.TotalMilliseconds < viewport_left || i.TotalMilliseconds > viewport_right)
+                    continue;
+                String time = String.Format("{0:00}", i.TotalMinutes) + ":" + String.Format("{0:00}", i.Seconds);
+                int pos = timeToX(i.TotalMilliseconds) - font_offset;
+                e.Graphics.DrawString(time, SystemFonts.DefaultFont, Brushes.Black, pos, graph_margin_top+graph_height);
+            }
 
             //limit new draw-commands to graph-area
             e.Graphics.SetClip(new Rectangle(graph_margin_left+1, graph_margin_top+1, graph_width-1, graph_height-1));
 
             //draw visible graph
-            int viewport_left = viewport_center - viewport_range / 2;
-            int viewport_right = viewport_center + viewport_range / 2;
             APMLogEntry last_entry = null;
             foreach (APMLogEntry entry in apm_log.entries)
             {
@@ -168,18 +259,23 @@ namespace APMVisualisation
             e.Graphics.DrawLine(Pens.Chocolate, graph_margin_left, APMtoY(apm_log.average_apm), graph_margin_left + graph_width, APMtoY(apm_log.average_apm));
         }
 
-        private void graphBox_mouseWheel(object sender, MouseEventArgs e)
-        {
-            if(e.Delta > 0)
-                viewportZoomIn();
-            else
-                viewportZoomOut();
-        }
-
         private void graphBox_Resize(object sender, EventArgs e)
         {
             updateGraphDimensions();
             graphBox.Refresh();
+        }
+        
+        private void graphBox_mouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                int center = XtoTime(e.X);
+                viewportZoomIn(false);
+                setViewportCenter(center);
+                graphBox.Refresh();
+            }
+            else
+                viewportZoomOut(true);
         }
 
         private int last_x;
@@ -193,8 +289,7 @@ namespace APMVisualisation
             int screen_delta = last_x - e.X;
             int pixel_width = viewport_range / graph_width;
 
-            viewport_center += pixel_width * screen_delta;
-            viewport_center = Math.Max(viewport_range / 2, Math.Min(viewport_center, (int)apm_log.total_time.TotalMilliseconds - viewport_range / 2));
+            setViewportCenter(viewport_center + pixel_width * screen_delta);
 
             last_x = e.X;
             graphBox.Refresh();
@@ -203,6 +298,14 @@ namespace APMVisualisation
         private void graphBox_MouseDown(object sender, MouseEventArgs e)
         {
             last_x = e.X;
+        }
+
+        private void graphBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int center = XtoTime(e.X);
+            viewportZoomIn(false);
+            setViewportCenter(center);
+            graphBox.Refresh();
         }
     }
 }
