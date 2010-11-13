@@ -12,6 +12,7 @@ class APMKeyHook {
 private:
 	static HANDLE hSharedMemory;
 	static LPLONG total_actions;
+	static BOOL chatFilter_active;
 
 	static void addAction();
 public:

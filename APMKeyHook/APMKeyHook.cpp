@@ -2,6 +2,7 @@
 
 HANDLE	APMKeyHook::hSharedMemory = NULL;
 LPLONG	APMKeyHook::total_actions = NULL;
+BOOL APMKeyHook::chatFilter_active = FALSE;
 
 void APMKeyHook::initSharedMemory() {
 	hSharedMemory = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, SHARED_MEMORY_SIZE, SHARED_MEMORY_NAME);
@@ -19,7 +20,10 @@ void APMKeyHook::addAction() {
 LRESULT CALLBACK APMKeyHook::KeyboardProc(int code, WPARAM wParam, LPARAM lParam) {
 	if(code>=0) {
 		if((lParam & KEY_FIRST_PRESS) == 0) {
-			if(!(wParam == VK_TAB || wParam == VK_SHIFT || wParam == VK_CONTROL ||
+			/*if(wParam == VK_RETURN) {
+				chatFilter_active = !chatFilter_active;
+			}*/
+			if(!chatFilter_active && !(wParam == VK_TAB || wParam == VK_SHIFT || wParam == VK_CONTROL ||
 				wParam == VK_MENU || wParam == VK_LWIN || wParam == VK_RWIN ||
 				wParam == VK_CAPITAL || wParam == VK_RETURN))
 				addAction();

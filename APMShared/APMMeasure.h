@@ -4,7 +4,7 @@
 #include "APMKeyHook.h"
 #include "APMConfig.h"
 
-#define RING_SIZE 15
+#define RING_SIZE 20
 #define MEASURE_CYCLE_LENGTH 500
 
 typedef struct {
