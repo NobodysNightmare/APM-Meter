@@ -17,8 +17,9 @@ The measurement stops when the counter-event occurs (e.g. pressing the hotkey ag
 	-o <filename>
 			Log the APM to a file. e.g.: -o logfile.bin
 			Can be used to create graphs or get other statistics.
-			The output is binary and not human-readable, but you can convert it to a
-			human- (and gnuplot-) readable format using convert.py
+			The output is binary and not human-readable, but you can open it with
+			APMVisualisation.
+			You can also convert it to a human- (and gnuplot-) readable format using convert.py
 			Binary format is as follows:
 				12 Byte blocks that consist of
 					4 Byte long integer: total number of actions
@@ -34,6 +35,12 @@ The measurement stops when the counter-event occurs (e.g. pressing the hotkey ag
 	--no-skip-begin
 			By default the real apm-measurement starts with the first action after the start-event,
 			use this option to  start all measurement immediately.
+
+Using APMVisualisation
+----------------------
+With APMVisualisation you can view your generated log-files.
+You have a green graph indicating APM at a certain time and a brown line indicating your average APM.
+Using the mouse-wheel you can zoom in and out and by dragging the graph you can shift your view.
 
 Using convert.py
 ----------------
