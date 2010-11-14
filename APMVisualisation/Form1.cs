@@ -59,7 +59,10 @@ namespace APMVisualisation
 
         private void updateGraphDimensions()
         {
+            if(apm_log != null)
+                graph_margin_left = TextRenderer.MeasureText(apm_log.max_apm.ToString(), SystemFonts.DefaultFont).Width;
             graph_margin_bot = (int)SystemFonts.DefaultFont.GetHeight();
+
             graph_height = graphBox.Height - (graph_margin_top + graph_margin_bot) - 1;
             graph_width = graphBox.Width - (graph_margin_left + graph_margin_right) - 1;
 
@@ -165,7 +168,7 @@ namespace APMVisualisation
 
             updateStatusBar();
             resetViewport();
-            updateYStepSize();
+            updateGraphDimensions();
             graphBox.Refresh();
         }
 
@@ -200,14 +203,11 @@ namespace APMVisualisation
             //enable AA
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
-            //draw surrounding
+            //draw surrounding box
             e.Graphics.DrawRectangle(Pens.Black, graph_margin_left, graph_margin_top, graph_width, graph_height);
             
             if (apm_log == null)
                 return;
-
-            //left margin changes depending on max-apm
-            graph_margin_left = (int)e.Graphics.MeasureString(apm_log.max_apm.ToString(), SystemFonts.DefaultFont).Width;
 
             //draw captions
             int font_offset = (int)SystemFonts.DefaultFont.GetHeight() / 2;
