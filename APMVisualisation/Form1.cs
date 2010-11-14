@@ -72,41 +72,33 @@ namespace APMVisualisation
             if(apm_log == null)
                 return;
             double font_height = SystemFonts.DefaultFont.GetHeight();
-            int i;
-            double last_diff = -1;
-            for (i = 1; i * min_y_step <= apm_log.max_apm; i++)
+            for (int i = 1; i * min_y_step <= apm_log.max_apm; i++)
             {
                 int count = apm_log.max_apm / (i * min_y_step);
-                double diff = Math.Abs(count*font_height/graph_height-y_caption_density);
+                double diff = y_caption_density-count * font_height / graph_height;
 
-                if (last_diff > 0 && diff > last_diff)
+                if (diff > 0)
                 {
-                    i--;
+                    y_step = i * min_y_step;
                     break;
                 }
-                last_diff = diff;
             }
-            y_step = i * min_y_step;
         }
 
         private void updateXStepSize()
         {
             double text_width = 33;
-            int i;
-            double last_diff = -1;
-            for (i = 1; i * min_x_step <= viewport_range; i++)
+            for (int i = 1; i * min_x_step <= viewport_range; i++)
             {
                 int count = viewport_range / (i * min_x_step);
-                double diff = Math.Abs(count * text_width / graph_width - x_caption_density);
+                double diff = x_caption_density - count * text_width / graph_width;
 
-                if (last_diff > 0 && diff > last_diff)
+                if (diff > 0)
                 {
-                    i--;
+                    x_step = i * min_x_step;
                     break;
                 }
-                last_diff = diff;
             }
-            x_step = i * min_x_step;
         }
 
         private void resetViewport()
@@ -242,17 +234,17 @@ namespace APMVisualisation
             APMLogEntry last_entry = null;
             foreach (APMLogEntry entry in apm_log.entries)
             {
-                if (last_entry == null)
+                if (last_entry == null || entry.time < viewport_left)
                 {
                     last_entry = entry;
                     continue;
                 }
-                if (entry.time < viewport_left || entry.time > viewport_right)
-                    continue;
 
                 e.Graphics.DrawLine(Pens.Green, timeToX(last_entry.time), APMtoY(last_entry.apm), timeToX(entry.time), APMtoY(entry.apm));
-
                 last_entry = entry;
+
+                if (entry.time > viewport_right)
+                    break;
             }
 
             //indicate average APM
