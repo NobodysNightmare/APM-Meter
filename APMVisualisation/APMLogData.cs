@@ -23,7 +23,7 @@ namespace APMVisualisation
     }
     class APMLogData
     {
-        private const int max_read_blocks = 32;
+        private const int max_read_blocks = 64;
 
         public List<APMLogEntry> entries;
 
