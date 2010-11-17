@@ -74,5 +74,17 @@ namespace APMVisualisation_Tests
             Assert.AreEqual(3, target.time);
             Assert.AreEqual(4, target.apm);
         }
+
+        [TestMethod()]
+        public void APMLogEntryConstructorTestShortBuffer()
+        {
+            byte[] buffer = { (byte)1, (byte)0, (byte)0, (byte)0, (byte)2, (byte)0, (byte)0, (byte)0, (byte)3 };
+            try
+            {
+                new APMLogEntry(buffer, 0);
+                Assert.Fail("Constructor with to few ints succeeded");
+            }
+            catch(Exception e) { };
+        }
     }
 }

@@ -23,11 +23,11 @@ namespace APMVisualisation
 
         private double y_caption_density = 0.333;
         private int min_y_step = 20;
-        private int y_step;
+        private int y_step = 20;
 
         private double x_caption_density = 0.333;
         private int min_x_step = 10000;
-        private int x_step;
+        private int x_step = 10000;
 
         private int graph_height;
         private int graph_width;
