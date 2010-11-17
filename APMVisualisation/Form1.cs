@@ -134,6 +134,9 @@ namespace APMVisualisation
         }
 
         private void setViewportCenter(int center) {
+            if (apm_log == null)
+                return;
+
             viewport_center = Math.Max(viewport_range / 2, Math.Min(center, (int)apm_log.total_time.TotalMilliseconds - viewport_range / 2));
         }
 
@@ -259,6 +262,9 @@ namespace APMVisualisation
         
         private void graphBox_mouseWheel(object sender, MouseEventArgs e)
         {
+            if (apm_log == null)
+                return;
+
             if (e.Delta > 0)
             {
                 int center = XtoTime(e.X);
