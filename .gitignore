@@ -19,3 +19,6 @@
 /APMShared/Release
 /APMVisualisation/bin
 /APMVisualisation/obj
+/TestResults
+/APMVisualisation-Tests/bin
+/APMVisualisation-Tests/obj
