@@ -58,11 +58,15 @@ namespace APMVisualisation
             //read head
             byte[] pre_buffer = new byte[8];
             readAtLeast(input, pre_buffer, 8);
-            //TODO check for "APM" and version
+            if (!(pre_buffer[0] == 'A' && pre_buffer[1] == 'P' && pre_buffer[2] == 'M'))
+            {
+                throw new Exception("Given file is no APM-Logfile");
+            }
+            
             Int32 head_len = BitConverter.ToInt32(pre_buffer, 4);
 
-            readHeader(input, 1, head_len);
-            readEntries(input);
+            readHeader(input, pre_buffer[3], head_len);
+            readEntries(input, head_len);
 
             total_time = new TimeSpan(0, 0, 0, 0, entries[entries.Count - 1].time);
         }
@@ -72,8 +76,9 @@ namespace APMVisualisation
             input.Position = length;
         }
 
-        private void readEntries(FileStream input)
+        private void readEntries(FileStream input, int header_size)
         {
+            input.Position = header_size;
             byte[] buffer = new byte[APMLogEntry.entry_size * max_read_blocks];
 
             while (input.Position < input.Length)

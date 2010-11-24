@@ -165,7 +165,15 @@ namespace APMVisualisation
 
         private void openLog_event(object sender, CancelEventArgs e)
         {
-            apm_log = new APMLogData(openLogFileDialog.FileName);
+            try
+            {
+                apm_log = new APMLogData(openLogFileDialog.FileName);
+            }
+            catch (Exception exept)
+            {
+                //TODO add a dialog-box
+                return;
+            }
             log_name = openLogFileDialog.SafeFileName;
             closeLogMenuItem.Enabled = true;
 
