@@ -6,13 +6,15 @@ APMLogger::APMLogger(LPCTSTR filename) {
 	if(hFile == INVALID_HANDLE_VALUE)
 		printf("\r\nCould not open log-file\r\n");
 	else {
+		//FIXME size is hard-coded because memory-structures may align
+		//		should be fixed in later versions
 		//set basic header info
 		APMLogHeader* head = new APMLogHeader();
 		head->file_id[0]	= 'A';
 		head->file_id[1]	= 'P';
 		head->file_id[2]	= 'M';
 		head->version		= (char)1;
-		head->header_size = sizeof(APMLogHeader);
+		head->header_size = 207;
 
 		//set time-info
 		SYSTEMTIME now;
@@ -25,8 +27,7 @@ APMLogger::APMLogger(LPCTSTR filename) {
 
 		//write the header
 		DWORD written = 0;
-		//WriteFile(hFile, head, sizeof(APMLogHeader), &written, NULL);
-		//TODO write converter and reader first
+		WriteFile(hFile, head, 207, &written, NULL);
 
 		delete head;
 	}
