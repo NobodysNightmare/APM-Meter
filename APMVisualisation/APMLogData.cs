@@ -25,6 +25,7 @@ namespace APMVisualisation
     {
         private const int max_read_blocks = 64;
 
+        private String log_file;
 
         public DateTime time;
         public List<APMLogEntry> entries;
@@ -54,6 +55,7 @@ namespace APMVisualisation
 
         public APMLogData(String filename)
         {
+            log_file = filename;
             entries = new List<APMLogEntry>();
             FileStream input = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
 

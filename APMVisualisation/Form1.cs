@@ -14,7 +14,6 @@ namespace APMVisualisation
         private static int MAX_ZOOM = 10000;
 
         private APMLogData apm_log = null;
-        private String log_name = "";
 
         private int graph_margin_bot = 0;
         private int graph_margin_top = 5;
@@ -174,7 +173,6 @@ namespace APMVisualisation
                 //TODO add a dialog-box
                 return;
             }
-            log_name = openLogFileDialog.SafeFileName;
             closeLogMenuItem.Enabled = true;
 
             updateStatusBar();
@@ -197,12 +195,10 @@ namespace APMVisualisation
             {
                 totalDurationStatus.Text = "---";
                 averageAPMStatus.Text = "---";
-                logFilenameStatus.Text = "---";
                 logTimeStatus.Text = "---";
                 return;
             }
 
-            logFilenameStatus.Text = log_name;
             String time_str = Math.Floor(apm_log.total_time.TotalMinutes).ToString() + ":";
             time_str += String.Format("{0:00}", apm_log.total_time.Seconds)+" min";
             totalDurationStatus.Text = time_str;

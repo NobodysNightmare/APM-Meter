@@ -42,8 +42,6 @@
             this.totalDurationStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.averageAPMStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.logFilenameStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.logTimeStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.openLogFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -140,8 +138,6 @@
             this.totalDurationStatus,
             this.toolStripStatusLabel3,
             this.averageAPMStatus,
-            this.toolStripStatusLabel2,
-            this.logFilenameStatus,
             this.toolStripStatusLabel4,
             this.logTimeStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 286);
@@ -174,19 +170,6 @@
             this.averageAPMStatus.Name = "averageAPMStatus";
             this.averageAPMStatus.Size = new System.Drawing.Size(22, 17);
             this.averageAPMStatus.Text = "---";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Margin = new System.Windows.Forms.Padding(8, 3, 0, 2);
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(51, 17);
-            this.toolStripStatusLabel2.Text = "Log File:";
-            // 
-            // logFilenameStatus
-            // 
-            this.logFilenameStatus.Name = "logFilenameStatus";
-            this.logFilenameStatus.Size = new System.Drawing.Size(22, 17);
-            this.logFilenameStatus.Text = "---";
             // 
             // toolStripStatusLabel4
             // 
@@ -244,8 +227,6 @@
         private System.Windows.Forms.ToolStripStatusLabel averageAPMStatus;
         private System.Windows.Forms.OpenFileDialog openLogFileDialog;
         private System.Windows.Forms.ToolStripMenuItem closeLogMenuItem;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripStatusLabel logFilenameStatus;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel logTimeStatus;
     }
