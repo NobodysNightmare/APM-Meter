@@ -195,16 +195,19 @@ namespace APMVisualisation
         {
             if (apm_log == null)
             {
-                totalTimeStatus.Text = "---";
+                totalDurationStatus.Text = "---";
                 averageAPMStatus.Text = "---";
                 logFilenameStatus.Text = "---";
+                logTimeStatus.Text = "---";
                 return;
             }
 
             logFilenameStatus.Text = log_name;
             String time_str = Math.Floor(apm_log.total_time.TotalMinutes).ToString() + ":";
             time_str += String.Format("{0:00}", apm_log.total_time.Seconds)+" min";
-            totalTimeStatus.Text = time_str;
+            totalDurationStatus.Text = time_str;
+
+            logTimeStatus.Text = apm_log.time.ToShortDateString() + " " + apm_log.time.ToShortTimeString();
 
             averageAPMStatus.Text = String.Format("{0:0.##}", apm_log.average_apm);
         }

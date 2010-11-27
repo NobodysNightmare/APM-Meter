@@ -25,6 +25,8 @@ namespace APMVisualisation
     {
         private const int max_read_blocks = 64;
 
+
+        public DateTime time;
         public List<APMLogEntry> entries;
 
         public TimeSpan total_time;
@@ -73,7 +75,11 @@ namespace APMVisualisation
 
         private void readHeader(FileStream input, byte version, int length)
         {
-            input.Position = length;
+            input.Position = 0;
+            byte[] head = new byte[length];
+            readAtLeast(input, head, length);
+
+            time = new DateTime(BitConverter.ToInt16(head, 8), head[10], head[11], head[12], head[13], 0);
         }
 
         private void readEntries(FileStream input, int header_size)

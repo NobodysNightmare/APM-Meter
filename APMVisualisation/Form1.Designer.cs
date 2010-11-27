@@ -39,11 +39,13 @@
             this.graphBox = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.totalTimeStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.totalDurationStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.averageAPMStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.logFilenameStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.logTimeStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.openLogFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.graphBox)).BeginInit();
@@ -135,11 +137,13 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
-            this.totalTimeStatus,
+            this.totalDurationStatus,
             this.toolStripStatusLabel3,
             this.averageAPMStatus,
             this.toolStripStatusLabel2,
-            this.logFilenameStatus});
+            this.logFilenameStatus,
+            this.toolStripStatusLabel4,
+            this.logTimeStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 286);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(692, 22);
@@ -152,11 +156,11 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(56, 17);
             this.toolStripStatusLabel1.Text = "Duration:";
             // 
-            // totalTimeStatus
+            // totalDurationStatus
             // 
-            this.totalTimeStatus.Name = "totalTimeStatus";
-            this.totalTimeStatus.Size = new System.Drawing.Size(22, 17);
-            this.totalTimeStatus.Text = "---";
+            this.totalDurationStatus.Name = "totalDurationStatus";
+            this.totalDurationStatus.Size = new System.Drawing.Size(22, 17);
+            this.totalDurationStatus.Text = "---";
             // 
             // toolStripStatusLabel3
             // 
@@ -183,6 +187,19 @@
             this.logFilenameStatus.Name = "logFilenameStatus";
             this.logFilenameStatus.Size = new System.Drawing.Size(22, 17);
             this.logFilenameStatus.Text = "---";
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(34, 17);
+            this.toolStripStatusLabel4.Text = "Date:";
+            // 
+            // logTimeStatus
+            // 
+            this.logTimeStatus.Name = "logTimeStatus";
+            this.logTimeStatus.Size = new System.Drawing.Size(22, 17);
+            this.logTimeStatus.Text = "---";
             // 
             // openLogFileDialog
             // 
@@ -222,13 +239,15 @@
         private System.Windows.Forms.PictureBox graphBox;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel totalTimeStatus;
+        private System.Windows.Forms.ToolStripStatusLabel totalDurationStatus;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel averageAPMStatus;
         private System.Windows.Forms.OpenFileDialog openLogFileDialog;
         private System.Windows.Forms.ToolStripMenuItem closeLogMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel logFilenameStatus;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripStatusLabel logTimeStatus;
     }
 }
 

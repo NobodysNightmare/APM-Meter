@@ -50,5 +50,12 @@ namespace APMVisualisation_Tests
         {
             Assert.AreEqual(7, log.entries.Count);
         }
+
+        [TestMethod]
+        public void APMLogDataTime()
+        {
+            DateTime expect = new DateTime(2007, 9, 22, 13, 37, 0);
+            Assert.AreEqual(expect, log.time);
+        }
     }
 }
