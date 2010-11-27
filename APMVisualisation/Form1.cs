@@ -196,6 +196,7 @@ namespace APMVisualisation
                 totalDurationStatus.Text = "---";
                 averageAPMStatus.Text = "---";
                 logTimeStatus.Text = "---";
+                gameOutcomeStatus.Text = "---";
                 return;
             }
 
@@ -206,6 +207,19 @@ namespace APMVisualisation
             logTimeStatus.Text = apm_log.time.ToShortDateString() + " " + apm_log.time.ToShortTimeString();
 
             averageAPMStatus.Text = String.Format("{0:0.##}", apm_log.average_apm);
+
+            switch (apm_log.outcome)
+            {
+                case APMLogGameOutcome.win:
+                    gameOutcomeStatus.Text = "win";
+                    break;
+                case APMLogGameOutcome.lose:
+                    gameOutcomeStatus.Text = "lose";
+                    break;
+                default:
+                    gameOutcomeStatus.Text = "---";
+                    break;
+            }
         }
 
         private void graphBox_Paint(object sender, PaintEventArgs e)

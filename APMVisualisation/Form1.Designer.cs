@@ -45,6 +45,8 @@
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.logTimeStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.openLogFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.gameOutcomeStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.graphBox)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -139,7 +141,9 @@
             this.toolStripStatusLabel3,
             this.averageAPMStatus,
             this.toolStripStatusLabel4,
-            this.logTimeStatus});
+            this.logTimeStatus,
+            this.toolStripStatusLabel2,
+            this.gameOutcomeStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 286);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(692, 22);
@@ -188,6 +192,19 @@
             // 
             this.openLogFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openLog_event);
             // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Margin = new System.Windows.Forms.Padding(10, 3, 0, 2);
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(60, 17);
+            this.toolStripStatusLabel2.Text = "Outcome:";
+            // 
+            // gameOutcomeStatus
+            // 
+            this.gameOutcomeStatus.Name = "gameOutcomeStatus";
+            this.gameOutcomeStatus.Size = new System.Drawing.Size(22, 17);
+            this.gameOutcomeStatus.Text = "---";
+            // 
             // APMVisMainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -229,6 +246,8 @@
         private System.Windows.Forms.ToolStripMenuItem closeLogMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel logTimeStatus;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel gameOutcomeStatus;
     }
 }
 

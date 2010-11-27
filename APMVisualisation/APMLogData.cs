@@ -6,6 +6,12 @@ using System.IO;
 
 namespace APMVisualisation
 {
+    enum APMLogGameOutcome : byte {
+        undefined = 0x0,
+        lose = 0x1,
+        win = 0x3
+    }
+
     class APMLogEntry
     {
         public const int entry_size = 12;
@@ -21,6 +27,7 @@ namespace APMVisualisation
             apm = BitConverter.ToInt32(buffer, offset+8);
         }
     }
+
     class APMLogData
     {
         private const int max_read_blocks = 64;
@@ -29,6 +36,8 @@ namespace APMVisualisation
 
         public DateTime time;
         public List<APMLogEntry> entries;
+
+        public APMLogGameOutcome outcome;
 
         public TimeSpan total_time;
         public double average_apm
@@ -82,6 +91,7 @@ namespace APMVisualisation
             readAtLeast(input, head, length);
 
             time = new DateTime(BitConverter.ToInt16(head, 8), head[10], head[11], head[12], head[13], 0);
+            outcome = (APMLogGameOutcome)head[14];
         }
 
         private void readEntries(FileStream input, int header_size)
