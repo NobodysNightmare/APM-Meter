@@ -1,4 +1,4 @@
-﻿using APMVisualisation;
+﻿using APMLogIO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -54,7 +54,7 @@ namespace APMVisualisation_Tests
 
 
         [TestMethod()]
-        public void APMLogEntryConstructorTest()
+        public void testEntryConstructor()
         {
             byte[] buffer = { (byte)1, (byte)0, (byte)0, (byte)0, (byte)2, (byte)0, (byte)0, (byte)0, (byte)3, (byte)0, (byte)0, (byte)0 };
             int offset = 0;
@@ -65,7 +65,7 @@ namespace APMVisualisation_Tests
         }
 
         [TestMethod()]
-        public void APMLogEntryConstructorTestWithOffset()
+        public void testEntryConstructorWithOffset()
         {
             byte[] buffer = { (byte)1, (byte)0, (byte)0, (byte)0, (byte)2, (byte)0, (byte)0, (byte)0, (byte)3, (byte)0, (byte)0, (byte)0, (byte)4, (byte)0, (byte)0, (byte)0 };
             int offset = 4;
@@ -76,7 +76,7 @@ namespace APMVisualisation_Tests
         }
 
         [TestMethod()]
-        public void APMLogEntryConstructorTestShortBuffer()
+        public void testEntryConstructorShortBuffer()
         {
             byte[] buffer = { (byte)1, (byte)0, (byte)0, (byte)0, (byte)2, (byte)0, (byte)0, (byte)0, (byte)3 };
             try

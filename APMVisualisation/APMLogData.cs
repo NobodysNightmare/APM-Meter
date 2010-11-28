@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace APMVisualisation
+namespace APMLogIO
 {
     enum APMLogGameOutcome : byte {
         undefined = 0x0,
         lose = 0x1,
+        invalid = 0x2,
         win = 0x3
     }
 
@@ -28,7 +29,7 @@ namespace APMVisualisation
         }
     }
 
-    class APMLogData
+    class APMLog
     {
         private const int max_read_blocks = 64;
 
@@ -61,6 +62,13 @@ namespace APMVisualisation
                 }
                 return priv_outcome;
             }
+            set
+            {
+                file_stream.Position = 14;
+                file_stream.WriteByte((byte)value);
+                file_stream.Flush();
+                priv_outcome = value;
+            }
         }
 
         public List<APMLogEntry> entries;
@@ -89,7 +97,7 @@ namespace APMVisualisation
             }
         }
 
-        public APMLogData(String filename)
+        public APMLog(String filename)
         {
             entries = new List<APMLogEntry>();
             file_stream = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
@@ -130,6 +138,11 @@ namespace APMVisualisation
                 read_len += input.Read(buffer, read_len, buffer.Length - read_len);
             } while (read_len < min_len);
             return read_len;
+        }
+
+        public void Close()
+        {
+            file_stream.Close();
         }
     }
 }

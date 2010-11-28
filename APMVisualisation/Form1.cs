@@ -1,4 +1,5 @@
-﻿using System;
+﻿using APMLogIO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +14,7 @@ namespace APMVisualisation
     {
         private static int MAX_ZOOM = 10000;
 
-        private APMLogData apm_log = null;
+        private APMLog apm_log = null;
 
         private int graph_margin_bot = 0;
         private int graph_margin_top = 5;
@@ -164,9 +165,12 @@ namespace APMVisualisation
 
         private void openLog_event(object sender, CancelEventArgs e)
         {
+            if (apm_log != null)
+                apm_log.Close();
+
             try
             {
-                apm_log = new APMLogData(openLogFileDialog.FileName);
+                apm_log = new APMLog(openLogFileDialog.FileName);
             }
             catch (Exception exept)
             {
@@ -183,6 +187,7 @@ namespace APMVisualisation
 
         private void closeLog_event(object sender, EventArgs e)
         {
+            apm_log.Close();
             apm_log = null;
             closeLogMenuItem.Enabled = false;
             updateStatusBar();

@@ -1,4 +1,4 @@
-﻿using APMVisualisation;
+﻿using APMLogIO;
 using System;
 using System.Text;
 using System.Collections.Generic;
@@ -8,18 +8,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace APMVisualisation_Tests
 {
     [TestClass]
-    public class APMLogDataTest
+    public class APMLogReadTests
     {
-        private APMLogData log;
+        private APMLog log;
 
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            log = new APMLogData("test.bin");
+            log = new APMLog("test.bin");
         }
 
         [TestMethod]
-        public void APMLogDataFirstEntry()
+        public void testReadFirstEntry()
         {
             APMLogEntry e = log.entries[0];
             Assert.AreEqual(1, e.actions);
@@ -28,38 +28,38 @@ namespace APMVisualisation_Tests
         }
 
         [TestMethod]
-        public void APMLogDataAverageAPM()
+        public void testReadAverageAPM()
         {
             Assert.AreEqual(120, log.average_apm);
         }
 
         [TestMethod]
-        public void APMLogDataTotalTime()
+        public void testReadTotalTime()
         {
             Assert.AreEqual(30, log.total_time.TotalSeconds);
         }
 
         [TestMethod]
-        public void APMLogDataMaxAPM()
+        public void testReadMaxAPM()
         {
             Assert.AreEqual(25, log.max_apm);
         }
 
         [TestMethod]
-        public void APMLogEntryCount()
+        public void validateEntryCount()
         {
             Assert.AreEqual(7, log.entries.Count);
         }
 
         [TestMethod]
-        public void APMLogDataTime()
+        public void testReadTime()
         {
             DateTime expect = new DateTime(2007, 9, 22, 13, 37, 0);
             Assert.AreEqual(expect, log.time);
         }
 
         [TestMethod]
-        public void APMLogDataOutcome()
+        public void APMLogOutcome()
         {
             APMLogGameOutcome expect = APMLogGameOutcome.win;
             Assert.AreEqual(expect, log.outcome);
