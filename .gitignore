@@ -1,5 +1,4 @@
 
-/APM-Meter.sdf
 /UpgradeLog.XML
 /APM-Meter.ncb
 /Debug
@@ -22,3 +21,4 @@
 /TestResults
 /APMVisualisation-Tests/bin
 /APMVisualisation-Tests/obj
+*.sdf
