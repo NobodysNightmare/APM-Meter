@@ -50,7 +50,18 @@ namespace APMVisualisation
             }
         }
 
-        public APMLogGameOutcome outcome;
+        private APMLogGameOutcome priv_outcome = (APMLogGameOutcome)2; //this is an invalid value (unspecified+win)
+        public APMLogGameOutcome outcome {
+            get
+            {
+                if (priv_outcome == (APMLogGameOutcome)2)
+                {
+                    file_stream.Position = 14;
+                    priv_outcome = (APMLogGameOutcome)file_stream.ReadByte();
+                }
+                return priv_outcome;
+            }
+        }
 
         public List<APMLogEntry> entries;
 
@@ -93,19 +104,9 @@ namespace APMVisualisation
             
             Int32 head_len = BitConverter.ToInt32(pre_buffer, 4);
 
-            readHeader(file_stream, pre_buffer[3], head_len);
             readEntries(file_stream, head_len);
 
             total_time = new TimeSpan(0, 0, 0, 0, entries[entries.Count - 1].time);
-        }
-
-        private void readHeader(FileStream input, byte version, int length)
-        {
-            input.Position = 0;
-            byte[] head = new byte[length];
-            readAtLeast(input, head, length);
-
-            outcome = (APMLogGameOutcome)head[14];
         }
 
         private void readEntries(FileStream input, int header_size)

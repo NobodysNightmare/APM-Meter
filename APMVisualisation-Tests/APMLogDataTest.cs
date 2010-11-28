@@ -15,7 +15,7 @@ namespace APMVisualisation_Tests
         [TestInitialize()]
         public void MyTestInitialize()
         {
-            log = new APMLogData("..\\..\\..\\APMVisualisation-Tests\\test.bin");
+            log = new APMLogData("test.bin");
         }
 
         [TestMethod]
@@ -56,6 +56,13 @@ namespace APMVisualisation_Tests
         {
             DateTime expect = new DateTime(2007, 9, 22, 13, 37, 0);
             Assert.AreEqual(expect, log.time);
+        }
+
+        [TestMethod]
+        public void APMLogDataOutcome()
+        {
+            APMLogGameOutcome expect = APMLogGameOutcome.win;
+            Assert.AreEqual(expect, log.outcome);
         }
     }
 }
