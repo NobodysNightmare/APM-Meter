@@ -32,19 +32,35 @@ namespace APMVisualisation
     {
         private const int max_read_blocks = 64;
 
-        private String log_file;
+        private FileStream file_stream;
 
-        public DateTime time;
-        public List<APMLogEntry> entries;
+        private DateTime priv_time;
+        public DateTime time
+        {
+            get
+            {
+                if(priv_time == DateTime.MinValue)
+                {
+                    byte[] time_buffer = new byte[6];
+                    file_stream.Position = 8;
+                    readAtLeast(file_stream, time_buffer, 6);
+                    priv_time = new DateTime(BitConverter.ToInt16(time_buffer, 0), time_buffer[2], time_buffer[3], time_buffer[4], time_buffer[5], 0);
+                }
+                return priv_time;
+            }
+        }
 
         public APMLogGameOutcome outcome;
 
+        public List<APMLogEntry> entries;
+
         public TimeSpan total_time;
+
         public double average_apm
         {
             get
             {
-                APMLogEntry entry = entries[entries.Count - 1];
+                APMLogEntry entry = entries.Last();
                 return (double)entry.actions/total_time.TotalMinutes;
             }
         }
@@ -64,13 +80,12 @@ namespace APMVisualisation
 
         public APMLogData(String filename)
         {
-            log_file = filename;
             entries = new List<APMLogEntry>();
-            FileStream input = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+            file_stream = new FileStream(filename, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
 
             //read head
             byte[] pre_buffer = new byte[8];
-            readAtLeast(input, pre_buffer, 8);
+            readAtLeast(file_stream, pre_buffer, 8);
             if (!(pre_buffer[0] == 'A' && pre_buffer[1] == 'P' && pre_buffer[2] == 'M'))
             {
                 throw new Exception("Given file is no APM-Logfile");
@@ -78,8 +93,8 @@ namespace APMVisualisation
             
             Int32 head_len = BitConverter.ToInt32(pre_buffer, 4);
 
-            readHeader(input, pre_buffer[3], head_len);
-            readEntries(input, head_len);
+            readHeader(file_stream, pre_buffer[3], head_len);
+            readEntries(file_stream, head_len);
 
             total_time = new TimeSpan(0, 0, 0, 0, entries[entries.Count - 1].time);
         }
@@ -90,7 +105,6 @@ namespace APMVisualisation
             byte[] head = new byte[length];
             readAtLeast(input, head, length);
 
-            time = new DateTime(BitConverter.ToInt16(head, 8), head[10], head[11], head[12], head[13], 0);
             outcome = (APMLogGameOutcome)head[14];
         }
 
