@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APMVisualisation", "APMVisu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APMVisualisation-Tests", "APMVisualisation-Tests\APMVisualisation-Tests.csproj", "{9E164A9B-19F2-420F-A32C-BB1FC2531705}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APM-Meter", "APM-Meter\APM-Meter.csproj", "{5D9A80AF-28AA-4A0D-B76C-75383879E01C}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = APM-Meter.vsmdi
@@ -95,6 +97,18 @@ Global
 		{9E164A9B-19F2-420F-A32C-BB1FC2531705}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{9E164A9B-19F2-420F-A32C-BB1FC2531705}.Release|Win32.ActiveCfg = Release|Any CPU
 		{9E164A9B-19F2-420F-A32C-BB1FC2531705}.Release|x86.ActiveCfg = Release|Any CPU
+		{5D9A80AF-28AA-4A0D-B76C-75383879E01C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5D9A80AF-28AA-4A0D-B76C-75383879E01C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{5D9A80AF-28AA-4A0D-B76C-75383879E01C}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{5D9A80AF-28AA-4A0D-B76C-75383879E01C}.Debug|Win32.ActiveCfg = Debug|x86
+		{5D9A80AF-28AA-4A0D-B76C-75383879E01C}.Debug|x86.ActiveCfg = Debug|x86
+		{5D9A80AF-28AA-4A0D-B76C-75383879E01C}.Debug|x86.Build.0 = Debug|x86
+		{5D9A80AF-28AA-4A0D-B76C-75383879E01C}.Release|Any CPU.ActiveCfg = Release|x86
+		{5D9A80AF-28AA-4A0D-B76C-75383879E01C}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{5D9A80AF-28AA-4A0D-B76C-75383879E01C}.Release|Mixed Platforms.Build.0 = Release|x86
+		{5D9A80AF-28AA-4A0D-B76C-75383879E01C}.Release|Win32.ActiveCfg = Release|x86
+		{5D9A80AF-28AA-4A0D-B76C-75383879E01C}.Release|x86.ActiveCfg = Release|x86
+		{5D9A80AF-28AA-4A0D-B76C-75383879E01C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

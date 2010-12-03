@@ -22,3 +22,5 @@
 /APMVisualisation-Tests/bin
 /APMVisualisation-Tests/obj
 *.sdf
+/APM-Meter/obj
+/APM-Meter/bin

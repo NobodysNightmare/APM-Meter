@@ -19,7 +19,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	APMConfig* cfg = new APMConfig(argc, argv);
 	APMTrigger* trigger = new APMTrigger(cfg);
 
-	hinstAPMSharedDll = LoadLibrary(TEXT("APMKeyHook.dll"));
+	/*hinstAPMSharedDll = LoadLibrary(TEXT("APMKeyHook.dll"));
 	hprocKeyboard = (HOOKPROC)GetProcAddress(hinstAPMSharedDll, "?KeyboardProc@APMKeyHook@@SGJHIJ@Z");
 	hprocMouse = (HOOKPROC)GetProcAddress(hinstAPMSharedDll, "?MouseProc@APMKeyHook@@SGJHIJ@Z");
 	if(hinstAPMSharedDll == NULL || hprocKeyboard == NULL || hprocMouse == NULL) {
@@ -36,7 +36,7 @@ int _tmain(int argc, _TCHAR* argv[]) {
 	if(keyboardHook == NULL || mouseHook == NULL) {
 		printf("Failed to register hooks\r\n");
 		return GetLastError();
-	}
+	}*/
 
 	if(cfg->log_file)
 		logger = new APMLogger(cfg->log_file);
